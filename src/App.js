@@ -1,11 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./App.css";
+import NavbarComponent from "./components/Navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Route, Switch } from "react-router";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div>
-      <h1>Hello from react</h1>
-    </div>
+    <Fragment>
+      <NavbarComponent />
+      <Switch>
+        <Route exact to="/" component={Home} />
+      </Switch>
+    </Fragment>
   );
 }
 
