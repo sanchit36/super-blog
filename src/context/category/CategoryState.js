@@ -1,4 +1,3 @@
-// import { useReducer } from "react";
 import { useReducer } from "react";
 import { ADD_CATEGORY, SET_CATEGORIES } from "../types";
 import CategoryContext from "./categoryContext";

@@ -23,3 +23,10 @@ a {
 a:hover {
   color: #28a745 !important;
 }
+
+.loader {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}

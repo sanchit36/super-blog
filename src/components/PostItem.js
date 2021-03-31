@@ -1,20 +1,21 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const PostItem = () => {
+const PostItem = ({ title, slug, content, img_url, published }) => {
   return (
-    <Card className="my-4">
-      <Card.Img
-        variant="top"
-        src="https://source.unsplash.com/collection/190727/800x450"
-      />
+    <Card className="text-center my-4">
+      <Link to={`/${slug}`}>
+        <Card.Img variant="top" src={img_url} />
+      </Link>
       <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+        <Card.Title as="h3">{title}</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {content.length > 30 ? content.slice(0, 30) : content}
         </Card.Text>
-        <Button variant="success">Go somewhere</Button>
+        <Link to={`/${slug}`} className="btn btn-success text-white">
+          Read More...
+        </Link>
       </Card.Body>
     </Card>
   );
