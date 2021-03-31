@@ -1,24 +1,23 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import CategoryLabel from "../components/CategoryLabel";
 import Header from "../components/Header";
 import Heading from "../components/Heading/Heading";
 import PostGrid from "../components/PostGrid";
+import CategoryContext from "../context/category/categoryContext";
 import { firestore } from "../firebase/firebase.setup";
 
 const Home = () => {
-  const [categories, setCategories] = useState([]);
+  const { categories, setCategories } = useContext(CategoryContext);
 
   useEffect(() => {
     const fetchCategories = async () => {
       const ref = await firestore.collection("categories").get();
-      setCategories(
-        ref.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        })
-      );
+      setCategories(ref.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     };
     fetchCategories();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -40,8 +39,10 @@ const Home = () => {
       </Header>
       <Container className="my-5">
         <div className="d-flex">
-          {categories?.map(({ id, icon, category }) => (
-            <CategoryLabel key={id} icon={icon} category={category} />
+          {categories?.map(({ id, icon, slug, category }) => (
+            <Link key={id} to={`/category/${slug}`}>
+              <CategoryLabel icon={icon} category={category} />
+            </Link>
           ))}
         </div>
         <hr />
