@@ -1,3 +1,4 @@
 export const SET_CATEGORIES = "SET_CATEGORIES";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const GET_LATEST_BLOGS = "GET_LATEST_BLOGS";
+export const GET_BLOG_DETAILS = "GET_BLOG_DETAILS";

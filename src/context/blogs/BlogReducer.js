@@ -1,4 +1,4 @@
-import { GET_LATEST_BLOGS } from "../types";
+import { GET_BLOG_DETAILS, GET_LATEST_BLOGS } from "../types";
 
 const BlogReducer = (state, action) => {
   switch (action.type) {
@@ -6,6 +6,11 @@ const BlogReducer = (state, action) => {
       return {
         ...state,
         latestBlogs: action.payload,
+      };
+    case GET_BLOG_DETAILS:
+      return {
+        ...state,
+        blogDetails: action.payload,
       };
     default:
       return state;

@@ -15,12 +15,12 @@ main {
   flex: 1;
 }
 
-a {
+.cl {
   color: black !important;
   text-decoration: none !important;
 }
 
-a:hover {
+.cl:hover {
   color: #28a745 !important;
 }
 

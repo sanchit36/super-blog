@@ -10,36 +10,26 @@ import AddCategory from "./pages/AddCategory";
 import AddBlog from "./pages/AddBlog";
 import { firestore } from "./firebase/firebase.setup";
 import CategoryContext from "./context/category/categoryContext";
-import BlogContext from "./context/blogs/BlogContext";
 import Loader from "./components/Loader";
+import BlogDetail from "./pages/BlogDetail";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const { setCategories } = useContext(CategoryContext);
-  const { setLatestBlogs } = useContext(BlogContext);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const ref = await firestore.collection("categories").get();
-      setCategories(ref.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    };
-    const fetchLatestBlogs = async () => {
-      const ref = await firestore
-        .collection("blogs")
-        .orderBy("published", "asc")
-        .limit(6)
-        .get();
-      setLatestBlogs(ref.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    };
+    let mounted = true;
+    setLoading(true);
 
-    const dataLoad = async () => {
-      setLoading(true);
-      await fetchCategories();
-      await fetchLatestBlogs();
-      setLoading(false);
-    };
-
-    dataLoad();
+    firestore
+      .collection("categories")
+      .get()
+      .then((ref) => {
+        if (mounted) {
+          setCategories(ref.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+          setLoading(false);
+        }
+      });
 
     // eslint-disable-next-line
   }, []);
@@ -53,6 +43,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/blog/:blogSlug" component={BlogDetail} />
           <Route exact path="/add-category" component={AddCategory} />
           <Route exact path="/add-blog" component={AddBlog} />
         </Switch>
