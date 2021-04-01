@@ -4,13 +4,16 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import CategoryState from "./context/category/CategoryState";
 import BlogState from "./context/blogs/BlogState";
+import UserState from "./context/user/UserState";
 
 ReactDOM.render(
   <CategoryState>
     <BlogState>
-      <Router>
-        <App />
-      </Router>
+      <UserState>
+        <Router>
+          <App />
+        </Router>
+      </UserState>
     </BlogState>
   </CategoryState>,
   document.getElementById("root")
