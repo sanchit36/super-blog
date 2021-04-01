@@ -48,7 +48,7 @@ const BlogDetail = () => {
         <Heading heading={title} />
         <p>Author: {author}</p>
         <p>
-          Published: <Moment format="DD/MM/YYYY">{published.toDate()}</Moment>
+          Published: <Moment format="DD/MM/YYYY">{published?.toDate()}</Moment>
         </p>
         <hr />
         <p>{content}</p>

@@ -12,6 +12,7 @@ import { firestore } from "./firebase/firebase.setup";
 import CategoryContext from "./context/category/categoryContext";
 import Loader from "./components/Loader";
 import BlogDetail from "./pages/BlogDetail";
+import Category from "./pages/Category";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/about" component={About} />
           <Route exact path="/blog/:blogSlug" component={BlogDetail} />
           <Route exact path="/add-category" component={AddCategory} />
+          <Route exact path="/category/:categorySlug" component={Category} />
           <Route exact path="/add-blog" component={AddBlog} />
         </Switch>
       </main>

@@ -6,7 +6,6 @@ import BlogReducer from "./BlogReducer";
 const BlogState = (props) => {
   const initialState = {
     latestBlogs: [],
-    categoryBlogs: [],
     blogDetails: {},
   };
 
