@@ -22,7 +22,7 @@ const Home = () => {
 
     firestore
       .collection("blogs")
-      .orderBy("published", "asc")
+      .orderBy("published", "desc")
       .limit(6)
       .get()
       .then((ref) => {
