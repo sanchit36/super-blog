@@ -12,7 +12,7 @@ const PostItem = ({ title, slug, content, img_url, published }) => {
       <Card.Body className="text-center">
         <Card.Title as="h3">{title}</Card.Title>
         <Card.Text>
-          {content.length > 30 ? content.slice(0, 30) : content}
+          {content.length > 150 ? `${content.slice(0, 150)}...` : content}
         </Card.Text>
         <Link to={`/blog/${slug}`} className="btn btn-success text-white">
           Read More...

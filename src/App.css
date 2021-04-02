@@ -30,3 +30,17 @@ main {
   display: grid;
   place-items: center;
 }
+
+.categories-container {
+  background-color: #fff;
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  white-space: nowrap;
+  display: flex;
+}
+
+.categories-container::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}

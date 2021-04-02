@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const CategoryLabel = ({ icon, category }) => {
+const CategoryLabel = ({ icon, category, slug }) => {
   return (
-    <h5 className="mr-5">
-      <i className={`text-success mr-3 ${icon}`} />
-      {category}
-    </h5>
+    <Link className="cl" to={`/category/${slug}`}>
+      <h5 className="mr-4">
+        <i className={`text-success ${icon}`} /> {category}
+      </h5>
+    </Link>
   );
 };
 

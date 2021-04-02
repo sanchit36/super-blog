@@ -79,7 +79,10 @@ const BlogDetail = () => {
           <CommentForm blogId={id} />
         ) : (
           <h5>
-            <span style={{ cursor: "pointer" }} onClick={signInWithGoogle}>
+            <span
+              style={{ color: "blue", cursor: "pointer" }}
+              onClick={signInWithGoogle}
+            >
               login
             </span>{" "}
             to comment

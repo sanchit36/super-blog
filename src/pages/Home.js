@@ -69,11 +69,14 @@ const Home = () => {
       </Header>
 
       <Container className="my-5">
-        <div className="d-flex">
+        <div className="d-flex categories-container">
           {categories?.map(({ id, icon, slug, category }) => (
-            <Link className="cl" key={id} to={`/category/${slug}`}>
-              <CategoryLabel icon={icon} category={category} />
-            </Link>
+            <CategoryLabel
+              key={id}
+              icon={icon}
+              slug={slug}
+              category={category}
+            />
           ))}
         </div>
         <hr />
