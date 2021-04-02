@@ -7,7 +7,7 @@ const Footer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    firestore.collection("newletter").add({
+    firestore.collection("newsletter").add({
       email,
     });
     setEmail("");
@@ -28,6 +28,7 @@ const Footer = () => {
                 Email
               </Form.Label>
               <Form.Control
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mb-2 mr-sm-2"
