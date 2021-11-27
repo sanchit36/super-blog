@@ -20,7 +20,9 @@ main {
   text-decoration: none !important;
 }
 
-.cl:hover {
+.cl:hover,
+.cl.active,
+.cl:active {
   color: #28a745 !important;
 }
 

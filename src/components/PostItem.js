@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 
 const PostItem = ({ title, slug, content, img_url, published }) => {
   return (
-    <Card className="my-4">
+    <Card className="mb-4" style={{ height: "100%" }}>
       <Link to={`/blog/${slug}`}>
-        <Card.Img variant="top" src={img_url} />
+        <Card.Img variant="top" src={img_url} height="220" />
       </Link>
-      <Card.Body className="text-center">
+      <Card.Body className="d-flex flex-column">
         <Card.Title as="h3">{title}</Card.Title>
-        <Card.Text>
-          {content.length > 150 ? `${content.slice(0, 150)}...` : content}
+        <Card.Text style={{ flex: 1, margin: 0 }}>
+          {content.length > 90 ? `${content.slice(0, 90)}...` : content}
         </Card.Text>
         <Link to={`/blog/${slug}`} className="btn btn-success text-white">
-          Read More...
+          Read More
         </Link>
       </Card.Body>
       <Card.Footer>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import UserContext from "../context/user/UserContext";
 import { auth, signInWithGoogle } from "../firebase/firebase.setup";
@@ -19,22 +19,30 @@ const NavbarComponent = () => {
             <LinkContainer exact to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer exact to="/about">
-              <Nav.Link>About</Nav.Link>
+            <LinkContainer exact to="/posts">
+              <Nav.Link>Posts</Nav.Link>
             </LinkContainer>
-            {user?.uid === "bTZxBs7QqreufIgD9MIxhkITiit1" ? (
-              <>
-                <LinkContainer exact to="/add-category">
-                  <Nav.Link>Add Category</Nav.Link>
-                </LinkContainer>
-                <LinkContainer exact to="/add-blog">
-                  <Nav.Link>Add Blog</Nav.Link>
-                </LinkContainer>
-              </>
-            ) : null}
 
             {user ? (
-              <Nav.Link onClick={() => auth.signOut()}>Logout</Nav.Link>
+              <NavDropdown
+                title={user?.displayName}
+                id="navbarScrollingDropdown"
+              >
+                {user.isAdmin && (
+                  <>
+                    <LinkContainer exact to="/add-blog">
+                      <NavDropdown.Item>Add Blog</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer exact to="/add-category">
+                      <NavDropdown.Item>Add Category</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                  </>
+                )}
+                <NavDropdown.Item onClick={() => auth.signOut()}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <Nav.Link onClick={signInWithGoogle}>Login</Nav.Link>
             )}

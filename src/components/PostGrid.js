@@ -5,7 +5,12 @@ import PostItem from "./PostItem";
 const PostGrid = ({ blogs }) => {
   return (
     <Row>
-      {blogs?.map((blog) => (
+      {blogs.length === 0 && (
+        <Col>
+          <h4>Sorry, no blogs in this category</h4>
+        </Col>
+      )}
+      {blogs.map((blog) => (
         <Col key={blog.id} xs={12} sm={12} md={6} lg={4}>
           <PostItem {...blog} />
         </Col>

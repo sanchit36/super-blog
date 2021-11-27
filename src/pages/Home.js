@@ -2,18 +2,15 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
-import CategoryLabel from "../components/CategoryLabel";
 import Header from "../components/Header";
 import Heading from "../components/Heading/Heading";
 import Loader from "../components/Loader";
 import PostGrid from "../components/PostGrid";
 import BlogContext from "../context/blogs/BlogContext";
-import CategoryContext from "../context/category/categoryContext";
 import { firestore } from "../firebase/firebase.setup";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
-  const { categories } = useContext(CategoryContext);
   const { latestBlogs, setLatestBlogs } = useContext(BlogContext);
 
   useEffect(() => {
@@ -22,6 +19,7 @@ const Home = () => {
 
     firestore
       .collection("blogs")
+      .where("featured", "==", "Yes")
       .orderBy("published", "desc")
       .limit(6)
       .get()
@@ -32,6 +30,10 @@ const Home = () => {
           );
           setLoading(false);
         }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoading(false);
       });
 
     return () => {
@@ -64,23 +66,12 @@ const Home = () => {
           </Moment>
         </div>
         <Link to={`/blog/${latestBlogs?.[0]?.slug}`}>
-          <button className="btn btn-success btn-lg">Read More ...</button>
+          <button className="btn btn-success btn-lg">Read More</button>
         </Link>
       </Header>
 
       <Container className="my-5">
-        <div className="d-flex categories-container">
-          {categories?.map(({ id, icon, slug, category }) => (
-            <CategoryLabel
-              key={id}
-              icon={icon}
-              slug={slug}
-              category={category}
-            />
-          ))}
-        </div>
-        <hr />
-        <Heading heading="Recent Posts" />
+        <Heading heading="Featured Posts" />
         <PostGrid blogs={latestBlogs} />
       </Container>
     </Fragment>

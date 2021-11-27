@@ -95,8 +95,8 @@ const BlogDetail = () => {
           comments.map((comment) => (
             <Media className="my-3" key={comment.id}>
               <img
-                width={64}
-                height={64}
+                width={32}
+                height={32}
                 className="rounded-circle mr-3"
                 src={comment.img_url}
                 alt="profile pic"
@@ -105,7 +105,7 @@ const BlogDetail = () => {
                 <h5>{comment.author}</h5>
                 <p className="mb-0">{comment.content}</p>
                 <Moment className="text-muted" fromNow ago>
-                  {comment.published?.toDate()}
+                  {comment.timestamp?.toDate()}
                 </Moment>
               </Media.Body>
             </Media>

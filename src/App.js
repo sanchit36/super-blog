@@ -1,21 +1,17 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import "./App.css";
-import NavbarComponent from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router";
-import Home from "./pages/Home";
-import Footer from "./components/Footer";
-import About from "./pages/About";
-import AddCategory from "./pages/AddCategory";
-import AddBlog from "./pages/AddBlog";
-import { auth, firestore } from "./firebase/firebase.setup";
+// Components
+import { Footer, Loader, Navbar, PrivateRoute } from "./components";
+// Pages
+import { Home, AddCategory, AddBlog, BlogDetail, Posts } from "./pages";
+// Context
 import CategoryContext from "./context/category/categoryContext";
-import Loader from "./components/Loader";
-import BlogDetail from "./pages/BlogDetail";
-import Category from "./pages/Category";
 import UserContext from "./context/user/UserContext";
+// Firebase
+import { auth, firestore } from "./firebase/firebase.setup";
 import { setUserProfileData } from "./firebase/firebase.utils";
-import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -27,12 +23,8 @@ function App() {
     setLoading(true);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUserProfileData(user);
-        setUser({
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
+        setUserProfileData(user).then((currentUser) => {
+          setUser(currentUser);
         });
       } else {
         setUser(null);
@@ -60,13 +52,13 @@ function App() {
 
   return (
     <Fragment>
-      <NavbarComponent />
+      <Navbar />
       <main>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
           <Route exact path="/blog/:blogSlug" component={BlogDetail} />
-          <Route exact path="/category/:categorySlug" component={Category} />
+          <Route exact path="/posts" component={Posts} />
+          <Route exact path="/posts/:categorySlug" component={Posts} />
           <PrivateRoute exact path="/add-category" component={AddCategory} />
           <PrivateRoute exact path="/add-blog" component={AddBlog} />
         </Switch>

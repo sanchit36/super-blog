@@ -11,6 +11,7 @@ const AddBlog = () => {
   const [author, setAuthor] = useState("");
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState("");
+  const [featured, setFeatured] = useState("No");
   const [uploading, setUploading] = useState("Upload");
 
   const { categories } = useContext(CategoryContext);
@@ -35,6 +36,7 @@ const AddBlog = () => {
           .child(file.name)
           .getDownloadURL();
         setUploading("Uploaded");
+        console.log(featured);
         firestore.collection("blogs").add({
           title,
           slug,
@@ -42,6 +44,7 @@ const AddBlog = () => {
           img_url: url,
           author,
           category,
+          featured,
           published: firebase.firestore.FieldValue.serverTimestamp(),
         });
         setTitle("");
@@ -49,6 +52,8 @@ const AddBlog = () => {
         setContent("");
         setAuthor("");
         setCategory("");
+        setFeatured("No");
+        setFile(null);
       }
     );
   };
@@ -102,6 +107,28 @@ const AddBlog = () => {
               </option>
             ))}
           </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="Form.featured">
+          <Form.Label>Featured</Form.Label>
+          <br />
+          <Form.Check
+            inline
+            value="Yes"
+            checked={"Yes" === featured}
+            onChange={(e) => setFeatured(e.target.value)}
+            label="Yes"
+            name="featured"
+            type="radio"
+          />
+          <Form.Check
+            inline
+            value="No"
+            checked={"No" === featured}
+            onChange={(e) => setFeatured(e.target.value)}
+            label="No"
+            name="featured"
+            type="radio"
+          />
         </Form.Group>
         <Form.Group controlId="Form.image">
           <Form.File
